@@ -1,0 +1,27 @@
+[include]
+    path = ~/.gitconfig_identity_current
+[core]
+    editor = vim
+    quotepath = false
+[alias]
+    st = status
+    lol = log --oneline --graph --all --decorate
+
+# Start Kaleidoscope auto-config
+
+[diff]
+    tool = Kaleidoscope
+[difftool]
+    prompt = false
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+    tool = Kaleidoscope
+[mergetool]
+    prompt = false
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustexitcode = true
+
+# End Kaleidoscope auto-config

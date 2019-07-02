@@ -1,0 +1,383 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Startup
+
+" make Vim work like Vim and not like Vi
+set nocompatible
+
+" make the backup dir if it doesn't exist
+if !isdirectory($HOME . "/.vim-backups")
+    call mkdir($HOME . "/.vim-backups", "", 0700)
+endif
+
+" Put swap files in a common directory (note // at end)
+set directory=~/.vim-backups//
+set backupdir=~/.vim-backups//
+
+" Map unnamed register to clipboard - this puts anything in the unnamed
+" register on the system clipboard/pasteboard. For example, `d`, `y`, and `p`
+" commands now work with the system clipboard/pasteboard.
+set clipboard=unnamed
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pathogen
+
+if v:version > 700
+    " pathogen is in a submodule so we need this first
+    runtime bundle/vim-pathogen/autoload/pathogen.vim
+
+    " start pathogen https://github.com/tpope/vim-pathogen
+    call pathogen#infect()
+    call pathogen#helptags()
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Variables
+
+" set the character encoding
+set encoding=utf-8
+
+" map leader to <Space>
+let mapleader=" "
+
+" turn on syntax highlighting
+syntax on
+
+" soft wrap text
+set wrap linebreak textwidth=0
+
+" tabs should be converted to a group of 4 spaces
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set smarttab
+
+" change the tab stops for particular file types
+autocmd Filetype html       setlocal ts=2 sts=2 sw=2
+autocmd Filetype htmldjango setlocal ts=2 sts=2 sw=2
+autocmd Filetype css        setlocal ts=2 sts=2 sw=2
+autocmd Filetype scss       setlocal ts=2 sts=2 sw=2
+autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2
+autocmd Filetype eruby      setlocal ts=2 sts=2 sw=2
+autocmd Filetype swift      setlocal ts=4 sts=4 sw=4
+
+" treat Gemfile as ruby
+autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
+
+" disable autoindent and expandtab in annotated string files
+autocmd BufRead *.*annotatedstring setlocal noautoindent noexpandtab
+
+" automatically indent when adding a curly bracket, etc.
+set autoindent    " keep indentation from previous line
+set smartindent   " automatically inserts indentation in some cases
+" set cindent     " like smart indent but stricter and more customizable
+
+" filetype detection
+if has ("autocmd")
+    filetype on
+    filetype plugin on
+    filetype plugin indent on
+endif
+
+" status line
+set laststatus=2
+set statusline=
+set statusline+=%-3.3n\                       " buffer number
+set statusline+=%f\                           " filename
+set statusline+=%h%m%r%w                      " status flags
+set statusline+=\[%{strlen(&ft)?&ft:'none'}]  " file type
+set statusline+=%=                            " right align remainder
+set statusline+=0x%-8B                        " character value
+set statusline+=%-18(L%l\ /\ %L,\ C%c%V%)\    " line character
+set statusline+=%<%P                          " file position
+
+" show line number, cursor position
+set ruler
+
+" display incomplete commands (lower right)
+set showcmd
+
+" search as you type
+set incsearch
+
+" smart case searches
+set ignorecase
+set smartcase
+
+" show autocomplete menus
+set wildmenu
+
+" error bells are displayed visually
+set visualbell
+
+set history=1000      " store lots of :cmdline history
+set undolevels=1000   " store lots of undo steps
+set autoread          " reload files changed outside of vim
+set hidden            " hides buffers instead of closing them
+set hlsearch          " highlight searches by default
+:noh                  " do this here or the first char in each line will be highlighted
+
+" in list, display tabs and trailing spaces visually
+set listchars=tab:>\ ,trail:·,eol:¬
+
+" pydoc vsplit instead of split
+let g:pydoc_open_cmd = 'vsplit'
+set spelllang=en_us
+
+set foldmethod=indent   " fold based on indent
+set foldnestmax=3       " deepest fold is 3 levels
+set nofoldenable        " don't fold by default
+
+" turn off list mode by default
+set nolist
+
+" turn on line numbers
+set number
+
+" Tab-completion mode:
+" First tab completes as much as possible
+" Second tab provides a list
+" Third and subsequent tabs cycle through completion options
+set wildmode=longest,list,full
+set wildmenu
+
+" show NerdTREE on right of window
+" let NERDTreeWinPos='right'
+
+" Disable folding in Markdown files
+let g:vim_markdown_folding_disabled=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Font
+
+" Keepers
+" set guifont=Menlo:h11 lsp=1
+set guifont=SF\ Mono:h11 lsp=1
+
+" set guifont=LetterGothicMono\ Light:h14 lsp=0
+" set guifont=M+\ 1m\ Light:h14 lsp=-3
+
+" Alternatives
+" set guifont=Inconsolata:h14 lsp=1
+" set guifont=Lekton:h13 lsp=0
+" set guifont=Luxi\ Mono:h12 lsp=0
+" set guifont=Consolas:h13 lsp=-1
+" set guifont=Lucida\ Sans\ Typewriter:h12 lsp=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GUI Options
+
+" deactivate the mvim toolbar
+set guioptions-=T
+
+" hide the scrollbar (r for rhs, L for lhs)
+set guioptions-=r
+set guioptions-=L
+
+" highlight the currently active line
+set cursorline
+if exists('+colorcolumn')
+    set colorcolumn=80
+endif
+
+" set background=dark
+try
+    colorscheme solarized
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+endtry
+" set background=dark
+set background=light
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Leader Key Combinations
+
+" comment and uncomment
+noremap <silent> <leader>c :<c-b>sil <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:noh<cr>
+noremap <silent> <leader>u :<c-b>sil <c-e>s/^\v<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:noh<cr>
+
+" edit the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+
+" reload the vimrc file
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Tagbar toggle
+nmap <silent> <leader>b :TagbarToggle<CR>
+
+" Toggle list mode
+nmap <silent> <leader>i :set list!<CR>
+
+" unset the 'last search pattern' by hitting <leader>/
+nnoremap <leader>/ :noh<CR>
+
+" open current file in marked
+nnoremap <silent> <leader>m :silent !open -a "Marked 2" '%'<CR>:redraw!<CR>
+
+" navigate between buffers
+nmap <leader>] :bnext<CR>
+nmap <leader>[ :bprevious<CR>
+
+" Map ,w to Ctrl-w for window navigation
+map <leader>w <C-W>
+
+" clear search highlight
+noremap <silent> <leader>/ :nohls<CR>
+
+" instead of minibufexplorer, try this
+nnoremap <leader>l :buffers<CR>:buffer<Space>
+
+" single and double underline
+nnoremap <silent> <leader>1 yypVr-
+nnoremap <silent> <leader>2 yypVr=
+
+" fill line with #s
+nnoremap <silent> <leader># :call FillLine("#")<CR>
+
+" json lint
+nnoremap <leader>j :!jsonlint %<CR>
+
+" cd into current file's directory
+nnoremap <leader>d :cd %:p:h<CR>
+
+" toggle spell checking
+nmap <silent> <leader>s :set spell!<CR>
+
+" NERDTree toggle
+nmap <silent> <leader>t :NERDTreeToggle<CR>
+
+" Snippet expansion
+nmap <leader>x <ESC>:r ~/.vim/snippets/
+
+" build (run make)
+nnoremap <leader>k :silent make\|redraw!\|copen<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mapping
+
+" disable Q -> ex mode
+map Q <Nop>
+
+" let up and down handle wrapped lines sanely
+" nmap k gk
+" nmap j gj
+
+" center search matches when jumping
+map N Nzz
+map n nzz
+
+" disable K lookups
+map K <Nop>
+
+" map F1 to <ESC>
+map <F1> <ESC>
+imap <F1> <ESC>
+
+" Insert Mode
+" Remap all arrow keys to Nop
+inoremap <Up>      <Nop>
+inoremap <Down>    <Nop>
+inoremap <Left>    <Nop>
+inoremap <Right>   <Nop>
+inoremap <S-Up>    <Nop>
+inoremap <S-Down>  <Nop>
+inoremap <S-Left>  <Nop>
+inoremap <S-Right> <Nop>
+inoremap <C-Up>    <Nop>
+inoremap <C-Down>  <Nop>
+inoremap <C-Left>  <Nop>
+inoremap <C-Right> <Nop>
+
+" Normal Mode
+" Remap Arrows to Nop
+" Remap Ctrl-Arrows to switch between split buffers
+" Remap Alt-Arrows to resize split buffers
+noremap <Up>      <Nop>
+noremap <Down>    <Nop>
+noremap <Left>    <Nop>
+noremap <Right>   <Nop>
+noremap <S-Up>    <C-W>+
+noremap <S-Down>  <C-W>-
+noremap <S-Left>  <C-W><
+noremap <S-Right> <C-W>>
+
+" the 'smash escape'
+inoremap kj <Esc>
+inoremap jk <Esc>
+
+" make Y behave like other capitals
+map Y y$
+
+" prevent # from being placed at column 0
+" from :help smartindent
+inoremap # X#
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto Commands
+
+" auto chmod +x current script
+" au BufWritePost * if getline(1) =~ "^#!" | silent !chmod a+x <afile>
+" au BufWritePost * | endif
+
+" leave insert mode when focus is lost
+au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
+
+" .cmd files are Chao's extension for TCSH
+au BufRead,BufNewFile *.cmd  set filetype=tcsh
+
+" use .gp as gnuplot files
+au BufRead,BufNewFile *.gp   set filetype=gnuplot
+
+" use .text as markdown
+au BufRead,BufNewFile *.text set filetype=mkd
+
+" use Ruby highlighting for Podfiles
+au BufRead,BufNewFile Podfile set filetype=ruby
+
+" http://vim.wikia.com/wiki/comment/uncomment_visually_selected_text
+au filetype haskell,vhdl,ada,sql let b:comment_leader = '-- '
+au filetype vim                  let b:comment_leader = '" '
+au filetype c,cpp,java           let b:comment_leader = '// '
+au filetype sh,make,perl,python  let b:comment_leader = '# '
+au filetype ruby                 let b:comment_leader = '# '
+au filetype tex                  let b:comment_leader = '% '
+
+autocmd BufRead *.java set efm=%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+autocmd BufRead *.java set makeprg=ant\ -find\ build.xml
+autocmd BufRead *.json set ft=javascript
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Commands
+
+" bind :Q to :q
+command! Q q
+
+" align on a specific character (e.g., = in several assignments)
+command! -nargs=1 -range=% Align :<line1>,<line2>!sed 's/<args>/~<args>/g' | column -s '~' -t
+
+" remove trailing whitespace
+command! RemoveTrailingWhitespace %s/\s\+$//
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Taskpaper highlighting
+
+if version < 508
+  command! -nargs=+ HiLink hi link <args>
+else
+  command! -nargs=+ HiLink hi def link <args>
+endif
+
+HiLink taskpaperListItem      Identifier
+HiLink taskpaperContext       Identifier
+HiLink taskpaperProject       Title
+HiLink taskpaperDone          Comment
+HiLink taskpaperCancelled     NonText
+HiLink taskpaperComment       String
+
+delcommand HiLink
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlighting unwanted spaces
+
+:highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd Syntax * match ExtraWhitespace /\s\+$\| \+\ze\t/
+au filetype m,c,h :hi clear ExtraWhitespace

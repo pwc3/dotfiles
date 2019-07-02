@@ -1,0 +1,76 @@
+# -*- Mode: Unix Shell Script -*-
+
+# bash completion
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+# git prompt
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+source $HOME/bin/git-prompt.sh
+__PS1_GITSTATUS="\[\e[0;32m\]\$(__git_ps1)"
+
+# set vi mode with some emacs-like keybindings
+set -o vi
+# bind -m vi-command ".":insert-last-argument
+bind -m vi-insert  "\C-a.":beginning-of-line
+bind -m vi-insert  "\C-e.":end-of-line
+bind -m vi-insert  "\C-k.":kill-line
+# smash escape in terminal
+bind -m vi-insert '"jk":"\e"'
+bind -m vi-insert '"kj":"\e"'
+
+export CLICOLOR=1
+
+# don't save in history commands that start with space
+export HISTCONTROL=ignorespace
+
+# aliases
+alias beep='echo -en "\007"'
+alias ll='ls -l'
+alias lh='ls -lh'
+alias llh='ls -lh'
+alias la='ls -A'
+alias lah='ls -Ah'
+alias lla='ls -lA'
+alias llah='ls -lAh'
+alias lat='ls -lAt'
+alias lath='ls -lAth'
+
+alias excel="open -a \"Microsoft Excel\""
+alias numbers="open -a \"Numbers\""
+
+# fix minor directory misspellings
+shopt -s cdspell
+
+export PATH=$HOME/bin:$PATH
+
+###############################################################################
+## BASH HISTORY MANIPULATION
+
+# erase duplicates from the history (when a new item is added)
+# and don't save duplicates in the first place
+export HISTCONTROL=erasedups:ignoreboth
+
+# increase the size of the history file
+export HISTSIZE=10000
+
+# don't add these commands to history
+export HISTIGNORE="&:[bf]g:exit:clear:history"
+
+# when the shell is exited, the history is appended to ~/.bash_history
+shopt -s histappend
+
+# store multi-line commands as a single command
+shopt -s cmdhist
+
+###############################################################################
+## PROMPT MANIPULATION
+
+__PS1_DTS="\[\e[0;33m\]\D{%a %b %d %T %Z %Y}"
+
+__PS1_USERNAME="\[\e[0;31m\]\u@\h\[\e[0m\]: "
+__PS1_PWD="\[\e[0;36m\]\w\[\e[0m\]"
+
+export PS1="\n${__PS1_DTS}${__PS1_GITSTATUS}\n${__PS1_USERNAME}${__PS1_PWD}\n$ "
+
