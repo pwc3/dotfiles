@@ -19,18 +19,6 @@ set backupdir=~/.vim-backups//
 set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pathogen
-
-if v:version > 700
-    " pathogen is in a submodule so we need this first
-    runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-    " start pathogen https://github.com/tpope/vim-pathogen
-    call pathogen#infect()
-    call pathogen#helptags()
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Variables
 
 " set the character encoding
