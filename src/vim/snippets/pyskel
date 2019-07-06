@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+import argparse
+import codecs
+import sys
+
+def parse_args(argv):
+    if argv is None:
+        argv = sys.argv[1:]
+
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument("filenames",
+                        metavar="FILE",
+                        nargs="+",
+                        help="input filenames")
+    return parser.parse_args(argv)
+
+def main(argv=None):
+    options = parse_args(argv)
+
+    for filename in options.filenames:
+        with codecs.open(filename, "r", "utf-8") as fh:
+            for line in fh:
+                print line.rstrip()
+
+if __name__ == "__main__":
+    sys.exit(main())
