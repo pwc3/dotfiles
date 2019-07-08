@@ -67,10 +67,20 @@ shopt -s cmdhist
 ###############################################################################
 ## PROMPT MANIPULATION
 
-__PS1_DTS="\[\e[0;33m\]\D{%a %b %d %T %Z %Y}"
+__PS1_DTS="\[\e[0;33m\]\D{%a %b %d %T}"
 
 __PS1_USERNAME="\[\e[0;31m\]\u@\h\[\e[0m\]: "
 __PS1_PWD="\[\e[0;36m\]\w\[\e[0m\]"
 
-export PS1="\n${__PS1_DTS}${__PS1_GITSTATUS}\n${__PS1_USERNAME}${__PS1_PWD}\n$ "
+__git_identity ()
+{
+    if [ -x "$(command -v git-identity)" ]; then
+        echo "[$(git-identity current | awk '{$1=$1};1')]"
+    fi
+    return 0
+}
+
+__PS1_GIT_IDENTITY=" \[\e[0;34m\]\$(__git_identity)\e[0m\]"
+
+export PS1="\n${__PS1_DTS}${__PS1_GITSTATUS}${__PS1_GIT_IDENTITY}\n${__PS1_USERNAME}${__PS1_PWD}\n$ "
 
