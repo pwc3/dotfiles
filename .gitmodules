@@ -7,3 +7,6 @@
 [submodule "src/vim/pack/syntax/vim-markdown"]
 	path = src/vim/pack/syntax/start/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+[submodule "src/vim/pack/syntax/start/swift.vim"]
+	path = src/vim/pack/syntax/start/swift.vim
+	url = https://github.com/keith/swift.vim.git
