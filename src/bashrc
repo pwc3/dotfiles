@@ -4,6 +4,9 @@
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+# No, I don't want to use zsh.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # git prompt
 
 export GIT_PS1_SHOWDIRTYSTATE=1
