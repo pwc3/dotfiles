@@ -127,7 +127,7 @@ set wildmenu
 let g:vim_markdown_folding_disabled=1
 
 " Font
-set guifont=SF\ Mono:h11 lsp=1
+set guifont=SF\ Mono:h13 lsp=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI Options
