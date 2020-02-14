@@ -10,3 +10,6 @@
 [submodule "src/vim/pack/syntax/start/swift.vim"]
 	path = src/vim/pack/syntax/start/swift.vim
 	url = https://github.com/keith/swift.vim.git
+[submodule "src/vim/pack/editor/start/vim-repeat"]
+	path = src/vim/pack/editor/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
