@@ -88,3 +88,11 @@ __PS1_GIT_IDENTITY=" \[\e[0;34m\]\$(__git_identity)\e[0m\]"
 
 export PS1="\n${__PS1_DTS}${__PS1_GITSTATUS}${__PS1_GIT_IDENTITY}\n${__PS1_USERNAME}${__PS1_PWD}\n$ "
 
+###############################################################################
+## PYENV AND VIRTUALENV
+
+if [ -x "$(command -v pyenv)" ]; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
