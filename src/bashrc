@@ -91,6 +91,9 @@ export PS1="\n${__PS1_DTS}${__PS1_GITSTATUS}${__PS1_GIT_IDENTITY}\n${__PS1_USERN
 ###############################################################################
 ## PYENV AND VIRTUALENV
 
+# Disable adding the virtualenv to PS1
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
 if [ -x "$(command -v pyenv)" ]; then
     eval "$(pyenv init -)"
 fi
