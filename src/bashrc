@@ -40,6 +40,7 @@ alias llah='ls -lAh'
 alias lat='ls -lAt'
 alias lath='ls -lAth'
 
+alias marked="open -a \"Marked 2\""
 alias excel="open -a \"Microsoft Excel\""
 alias numbers="open -a \"Numbers\""
 
