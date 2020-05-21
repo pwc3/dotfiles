@@ -16,4 +16,5 @@
 - Other
   - [Git prompt](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
   - [Solarized terminal](https://github.com/tomislav/osx-terminal.app-colors-solarized)
+  - [SF Mono font](https://developer.apple.com/fonts/)
 
