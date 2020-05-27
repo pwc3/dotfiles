@@ -13,3 +13,6 @@
 [submodule "src/vim/pack/editor/start/vim-repeat"]
 	path = src/vim/pack/editor/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "src/vim/pack/colorschemes/start/vim-colors-xcode"]
+	path = src/vim/pack/colorschemes/start/vim-colors-xcode
+	url = https://github.com/arzg/vim-colors-xcode
