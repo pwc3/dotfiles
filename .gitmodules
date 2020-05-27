@@ -16,3 +16,6 @@
 [submodule "src/vim/pack/colorschemes/start/vim-colors-xcode"]
 	path = src/vim/pack/colorschemes/start/vim-colors-xcode
 	url = https://github.com/arzg/vim-colors-xcode
+[submodule "src/vim/pack/syntax/start/vim-graphql"]
+	path = src/vim/pack/syntax/start/vim-graphql
+	url = https://github.com/jparise/vim-graphql.git
