@@ -301,6 +301,27 @@ au filetype sh,make,perl,python  let b:comment_leader = '# '
 au filetype ruby                 let b:comment_leader = '# '
 au filetype tex                  let b:comment_leader = '% '
 
+" Start -- Fix markdown bulleted list formatting
+" https://github.com/plasticboy/vim-markdown/issues/126#issuecomment-632676694
+
+" r Automatically insert the current comment leader after hitting
+"   <Enter> in Insert mode.
+" o Automatically insert the current comment leader after hitting 'o' or
+"   'O' in Normal mode.
+au filetype markdown set formatoptions+=ro
+
+" The 'comments' option is a comma-separated list of parts.
+" Each part defines a type of comment string.
+" A part consists of: {flags}:{string}
+
+" {string} is the literal text that must appear.
+
+" {flags}:
+"   n Nested comment.  Nesting with mixed parts is allowed.
+"   b Blank (<Space>, <Tab> or <EOL>) required after {string}.
+au filetype markdown set comments=b:*,b:-,b:+,b:1.,n:>
+" End -- Fix markdown bulleted list formatting
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
 
@@ -319,3 +340,4 @@ command! RemoveTrailingWhitespace %s/\s\+$//
 :highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd Syntax * match ExtraWhitespace /\s\+$\| \+\ze\t/
 au filetype m,c,h :hi clear ExtraWhitespace
+
