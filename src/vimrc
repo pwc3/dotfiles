@@ -268,6 +268,12 @@ map Y y$
 " from :help smartindent
 inoremap # X#
 
+" Use CMD-[ and CMD-] to decrease/increase indent
+inoremap <D-]> <C-t>
+inoremap <D-[> <C-d>
+nnoremap <D-]> >>
+nnoremap <D-[> <<
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto Commands
 
