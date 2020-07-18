@@ -174,7 +174,7 @@ nmap <silent> <leader>i :set list!<CR>
 nnoremap <leader>/ :noh<CR>
 
 " open current file in marked
-nnoremap <silent> <leader>m :silent !open -a "Marked 2" '%'<CR>:redraw!<CR>
+nnoremap <silent> <leader>m :silent !open -a "Marked 2" "%"<CR>:redraw!<CR>
 
 " navigate between buffers
 nmap <leader>] :bnext<CR>
