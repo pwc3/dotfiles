@@ -19,3 +19,6 @@
 [submodule "src/vim/pack/syntax/start/vim-graphql"]
 	path = src/vim/pack/syntax/start/vim-graphql
 	url = https://github.com/jparise/vim-graphql.git
+[submodule "src/vim/pack/syntax/start/vimtex"]
+	path = src/vim/pack/syntax/start/vimtex
+	url = https://github.com/lervag/vimtex.git

@@ -129,6 +129,9 @@ let g:vim_markdown_folding_disabled=1
 " Font
 set guifont=SF\ Mono:h12 lsp=1
 
+" LaTeX Flavor
+let g:tex_flavor="latex"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI Options
 
